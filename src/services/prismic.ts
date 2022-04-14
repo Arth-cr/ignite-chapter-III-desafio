@@ -1,10 +1,18 @@
-import Prismic from '@prismicio/client';
+import * as prismic from '@prismicio/client';
+// import Prismic from '@prismicio/client';
 import { DefaultClient } from '@prismicio/client/types/client';
+// import fetch from 'node-fetch';
 
 export function getPrismicClient(req?: unknown): DefaultClient {
-  const prismic = Prismic.client(process.env.PRISMIC_API_ENDPOINT, {
-    req,
-  });
+  const endpoint = prismic.getEndpoint(process.env.PRISMIC_API_ENDPOINT);
+  const client = prismic.createClient(
+    'https://spacetravelingi.prismic.io/api/v2',
+    {
+      accessToken: process.env.PRISMIC_ACCESS_TOKEN,
+    }
+  );
 
-  return prismic;
+  console.log(client);
+
+  return client;
 }
